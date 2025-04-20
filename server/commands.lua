@@ -173,9 +173,10 @@ QBCore.Commands.Add('closeserver', Lang:t('command.closeserver.help'), { { name 
         QBCore.Config.Server.ClosedReason = reason
         for k in pairs(QBCore.Players) do
             if not QBCore.Functions.HasPermission(k, QBCore.Config.Server.WhitelistPermission) then
-                QBCore.Functions.Kick(k, reason, nil, nil)
-            end
-        end
+             QBCore.Functions.Kick(k, reason, nil, nil)
+               Wait(0) -- Prevent potential lag from unthrottled loop
+          end
+       end
         TriggerClientEvent('QBCore:Notify', source, Lang:t('success.server_closed'), 'success')
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
